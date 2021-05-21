@@ -3,13 +3,13 @@
  * кнопки скрытия/показа колонки в мобильной версии сайта
  * и за кнопки меню
  * */
-class Sidebar {
+ class Sidebar {
   /**
    * Запускает initAuthLinks и initToggleButton
    * */
   static init() {
-    this.initAuthLinks();
-    this.initToggleButton();
+      this.initAuthLinks();
+      this.initToggleButton();
   }
 
   /**
@@ -18,7 +18,10 @@ class Sidebar {
    * при нажатии на кнопку .sidebar-toggle
    * */
   static initToggleButton() {
-
+      document.querySelector('a.sidebar-toggle').addEventListener('click', () => {
+          document.querySelector('body').classList.toggle('sidebar-open');
+          document.querySelector('body').classList.toggle('sidebar-collapse');
+      });
   }
 
   /**
@@ -29,6 +32,18 @@ class Sidebar {
    * выходу устанавливает App.setState( 'init' )
    * */
   static initAuthLinks() {
-
+      document.querySelector('.menu-item_login a').addEventListener('click', () => {
+          App.getModal('login').open();
+      });
+      document.querySelector('.menu-item_register a').addEventListener('click', () => {
+          App.getModal('register').open();
+      });
+      document.querySelector('.menu-item_logout a').addEventListener('click', () => {
+          User.logout(User.current(), (err, response) => {
+              if (response.success) {
+                  App.setState('init');
+              }
+          });
+      });
   }
 }
