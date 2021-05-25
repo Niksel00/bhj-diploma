@@ -11,8 +11,7 @@
   onSubmit(data) {
       Account.create(data, (err, response) => {
           if (response.success) {
-              const regForm = new Modal(this.element.closest('.modal'));
-              regForm.close();
+              App.getModal('createAccount').close();
               this.element.reset();
               App.update();
           }

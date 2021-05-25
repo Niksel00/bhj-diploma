@@ -38,8 +38,12 @@
   onSubmit(data) {
       Transaction.create(data, (err, response) => {
           if (response.success) {
-              const regForm = new Modal(this.element.closest('.modal'));
-              regForm.close();
+              if(App.getModal('newExpense')) {
+                App.getModal('newExpense').close();
+              };
+              if(App.getModal('newIncome')) {
+                App.getModal('newIncome').close();
+              };
               this.element.reset();
               App.update();
           }
